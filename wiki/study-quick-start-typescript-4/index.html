@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang=ko>
+<head>
+    <meta charset="utf-8">
+    
+    <title>타입스크립트 스터디 4편 | veverita7 devlog</title>
+    
+    
+        <meta name="keywords" content="study,typescript" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="익명 함수 (152p)123resultMultiplication(1, 2); &#x2F;&#x2F; 호출 불가 (호이스팅 방지)let resultMultiplication &#x3D; function(a, b) &amp;#123;return a * b&amp;#125;;resultMultiplication(1, 2); &#x2F;&#x2F; 호출 가능 타입스크립트 함수 (156p) javascript와 달리 타입을">
+<meta property="og:type" content="article">
+<meta property="og:title" content="타입스크립트 스터디 4편">
+<meta property="og:url" content="http://veverita7.github.io/wiki/study-quick-start-typescript-4/index.html">
+<meta property="og:site_name" content="veverita7 devlog">
+<meta property="og:description" content="익명 함수 (152p)123resultMultiplication(1, 2); &#x2F;&#x2F; 호출 불가 (호이스팅 방지)let resultMultiplication &#x3D; function(a, b) &amp;#123;return a * b&amp;#125;;resultMultiplication(1, 2); &#x2F;&#x2F; 호출 가능 타입스크립트 함수 (156p) javascript와 달리 타입을">
+<meta property="og:locale" content="ko_KR">
+<meta property="article:published_time" content="2020-03-21T14:03:58.000Z">
+<meta property="article:modified_time" content="2020-07-22T08:55:44.244Z">
+<meta property="article:author" content="veverita7">
+<meta property="article:tag" content="study">
+<meta property="article:tag" content="typescript">
+<meta name="twitter:card" content="summary">
+    
+
+    
+
+    
+        <link rel="icon" href="/favicon.ico" />
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/open-sans/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    
+<script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="veverita7 devlog" type="application/atom+xml">
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                
+                <span class="site-title">veverita7 devlog</span>
+            </a>
+            <nav id="main-nav">
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="검색" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '포스트',
+            PAGES: 'Pages',
+            CATEGORIES: '카테고리',
+            TAGS: '태그',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="검색" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id='categories'>
+        <h3 class="widget-title">
+            <span>카테고리</span>
+            &nbsp;
+            <a id='allExpand' href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            javascript
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/iife/">IIFE 란?</a></li>  <li class="file"><a href="/wiki/closure/">클로저(Closure)</a></li>  <li class="file"><a href="/wiki/use-of-window-object/">window 객체 활용법</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            network
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/create-ssc-with-openssl/">OpenSSL로 SSL 인증서 발급하기</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            typescript
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/study-quick-start-typescript-1/">타입스크립트 스터디 1편</a></li>  <li class="file"><a href="/wiki/study-quick-start-typescript-2/">타입스크립트 스터디 2편</a></li>  <li class="file"><a href="/wiki/study-quick-start-typescript-3/">타입스크립트 스터디 3편</a></li>  <li class="file active"><a href="/wiki/study-quick-start-typescript-4/">타입스크립트 스터디 4편</a></li>  <li class="file"><a href="/wiki/study-quick-start-typescript-5/">타입스크립트 스터디 7장 클래스와 인터페이스</a></li>  <li class="file"><a href="/wiki/study-quick-start-typescript-6/">타입스크립트 스터디 8장 모듈</a></li>  <li class="file"><a href="/wiki/study-quick-start-typescript-7/">타입스크립트 스터디 9장 고급타입</a></li>  <li class="file"><a href="/wiki/study-quick-start-typescript-8/">타입스크립트 스터디 10장 타입</a></li>  <li class="file"><a href="/wiki/study-quick-start-typescript-11/">타입스크립트 스터디 11장 제네릭</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-study-quick-start-typescript-4" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/typescript/">typescript</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/study/" rel="tag">study</a>, <a class="tag-link" href="/tags/typescript/" rel="tag">typescript</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/study-quick-start-typescript-4/">
+            <time datetime="2020-03-21T14:03:58.000Z" itemprop="datePublished">2020-03-21</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+                        
+                            <div class="article-meta-button">
+                                <a href='https://github.com/veverita7/veverita7.github.io/raw/writing/source/_posts/study-quick-start-typescript-4.md' target="_blank" rel="noopener"> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a href='https://github.com/veverita7/veverita7.github.io/edit/writing/source/_posts/study-quick-start-typescript-4.md' target="_blank" rel="noopener"> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a href='https://github.com/veverita7/veverita7.github.io/commits/writing/source/_posts/study-quick-start-typescript-4.md' target="_blank" rel="noopener"> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            타입스크립트 스터디 4편
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">카탈로그</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#익명-함수-152p"><span class="toc-number">1.</span> <span class="toc-text">익명 함수 (152p)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#타입스크립트-함수-156p"><span class="toc-number">2.</span> <span class="toc-text">타입스크립트 함수 (156p)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#나머지-매개변수-rest-parameter-160p"><span class="toc-number">3.</span> <span class="toc-text">나머지 매개변수(rest parameter) (160p)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#선택-매개변수-optional-parameter-162p"><span class="toc-number">4.</span> <span class="toc-text">선택 매개변수(optional parameter) (162p)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#함수-오버로드-164p"><span class="toc-number">5.</span> <span class="toc-text">함수 오버로드 (164p)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#화살표-함수-람다-함수-169p"><span class="toc-number">6.</span> <span class="toc-text">화살표 함수(람다 함수) (169p)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#객체-리터럴-173p"><span class="toc-number">7.</span> <span class="toc-text">객체 리터럴 (173p)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#익명-함수와-타입-선언-176p"><span class="toc-number">8.</span> <span class="toc-text">익명 함수와 타입 선언 (176p)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#콜백-함수-178p"><span class="toc-number">9.</span> <span class="toc-text">콜백 함수 (178p)</span></a></li></ol>
+                </div>
+            
+        
+        
+            <h2 id="익명-함수-152p"><a href="#익명-함수-152p" class="headerlink" title="익명 함수 (152p)"></a>익명 함수 (152p)</h2><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">resultMultiplication(<span class="number">1</span>, <span class="number">2</span>); <span class="comment">// 호출 불가 (호이스팅 방지)</span></span><br><span class="line"><span class="keyword">let</span> resultMultiplication = <span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>) </span>&#123;<span class="keyword">return</span> a * b&#125;;</span><br><span class="line">resultMultiplication(<span class="number">1</span>, <span class="number">2</span>); <span class="comment">// 호출 가능</span></span><br></pre></td></tr></table></figure>
+<h2 id="타입스크립트-함수-156p"><a href="#타입스크립트-함수-156p" class="headerlink" title="타입스크립트 함수 (156p)"></a>타입스크립트 함수 (156p)</h2><ul>
+<li>javascript와 달리 타입을 설정해 validation 코드를 줄인다.</li>
+<li>parameter의 기본값을 정할 수 있다. (javasript는 es6 이상)</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">pow</span>(<span class="params">x: <span class="built_in">number</span>, n: <span class="built_in">number</span> = 2</span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x ** y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">pow(<span class="number">10</span>); <span class="comment">// 100</span></span><br><span class="line">pow(<span class="number">10</span>, <span class="number">3</span>); <span class="comment">// 1000</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="나머지-매개변수-rest-parameter-160p"><a href="#나머지-매개변수-rest-parameter-160p" class="headerlink" title="나머지 매개변수(rest parameter) (160p)"></a>나머지 매개변수(rest parameter) (160p)</h2><ul>
+<li>0개 이상의 인수 할당</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">colors</span>(<span class="params">a: <span class="built_in">string</span>, ...rest: <span class="built_in">string</span>[]</span>): <span class="title">string</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a + <span class="string">" "</span> + rest.join(<span class="string">" "</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">colors(<span class="string">"red"</span>); <span class="comment">// red</span></span><br><span class="line">colors(<span class="string">"red"</span>, <span class="string">"orange"</span>); <span class="comment">// red orange</span></span><br><span class="line">colors(<span class="string">"red"</span>, <span class="string">"orange"</span>, <span class="string">"yellow"</span>); <span class="comment">// red orange yellow</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="선택-매개변수-optional-parameter-162p"><a href="#선택-매개변수-optional-parameter-162p" class="headerlink" title="선택 매개변수(optional parameter) (162p)"></a>선택 매개변수(optional parameter) (162p)</h2><ul>
+<li>0개 이상 1개 이하로 제한된 인수 할당</li>
+<li>선택 매개변수와 초기값 설정은 함께 사용 불가</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">a: <span class="built_in">number</span>, b?: <span class="built_in">number</span></span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 선택 매개변수와 초기값이 함께 사용 불가라서 값 설정 코드 추가</span></span><br><span class="line">  <span class="keyword">if</span> (b === <span class="literal">undefined</span>) &#123;</span><br><span class="line">    b = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sum(<span class="number">5</span>);  <span class="comment">// 5</span></span><br><span class="line">sum(<span class="number">5</span> + <span class="number">3</span>); <span class="comment">// 8</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="함수-오버로드-164p"><a href="#함수-오버로드-164p" class="headerlink" title="함수 오버로드 (164p)"></a>함수 오버로드 (164p)</h2><ul>
+<li>javascript로 변환되어도 동일한 형태를 유지해야해서 오버로드를 독립된 블록으로 선언해서는 안됨</li>
+<li>구체적인 인수에서 일반적인 인수 순서로 쌓음</li>
+<li>인수 형식에 따라 처리하는 코드 구현</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> animals = [&#123;name: <span class="string">"dog"</span>, age: <span class="number">13</span>&#125;, &#123;name: <span class="string">"cat"</span>, age: <span class="number">3</span>&#125;];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">pick</span>(<span class="params">x: &#123;name: <span class="built_in">string</span>&#125;</span>): <span class="title">number</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">pick</span>(<span class="params">x: &#123;age: <span class="built_in">number</span>&#125;</span>): <span class="title">string</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">pick</span>(<span class="params">x: <span class="built_in">number</span></span>): <span class="title">number</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">pick</span>(<span class="params">x: <span class="built_in">any</span></span>): <span class="title">any</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">type</span> x === <span class="string">"object"</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span>(x.name !== <span class="literal">undefined</span> &amp;&amp; x.age === <span class="literal">undefined</span>) &#123;</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">let</span> animal of animals) &#123;</span><br><span class="line">        <span class="keyword">if</span>(x.name === animal.name) &#123;</span><br><span class="line">          <span class="keyword">return</span> animal.age;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (x.name === <span class="literal">undefined</span> &amp;&amp; x.age !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">let</span> animal of animals) &#123;</span><br><span class="line">        <span class="keyword">if</span>(x.age === animal.age) &#123;</span><br><span class="line">          <span class="keyword">return</span> animal.name;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span>(<span class="keyword">type</span> x === <span class="string">"number"</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="number">0</span> &lt;= x &amp;&amp; x &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">pick(&#123;name: <span class="string">"dog"</span>&#125;); <span class="comment">// 13</span></span><br><span class="line">pick(&#123;age: <span class="number">3</span>&#125;); <span class="comment">// cat</span></span><br><span class="line">animals[pick(<span class="number">13</span>)]; <span class="comment">// &#123;name: 'dog', age: 13&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="화살표-함수-람다-함수-169p"><a href="#화살표-함수-람다-함수-169p" class="headerlink" title="화살표 함수(람다 함수) (169p)"></a>화살표 함수(람다 함수) (169p)</h2><ul>
+<li>python, java 8 이상에서 사용</li>
+<li>화살표를 -&gt; 가 아니라 =&gt; 사용</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> y = <span class="function"><span class="params">x</span> =&gt;</span> &#123;<span class="keyword">return</span> x;&#125;; <span class="comment">// 인수가 하나일땐 괄호 생략 불가</span></span><br><span class="line"><span class="keyword">let</span> sum = <span class="function">(<span class="params">x, y</span>) =&gt;</span> &#123;<span class="keyword">return</span> x + y;&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>filter method에 적용</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> numbers = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line">numbers = numbers.filter(n -&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> n % <span class="number">2</span> === <span class="number">0</span>;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(numbers); <span class="comment">// [2, 4]</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>reduce method에 적용</li>
+<li>자세한 설명 (<a href="https://alligator.io/js/finally-understand-reduce" target="_blank" rel="noopener">https://alligator.io/js/finally-understand-reduce</a>)</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">nums: <span class="built_in">number</span>[]</span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> result: <span class="built_in">number</span> = nums.reduce(<span class="function">(<span class="params">a, b</span>) =&gt;</span> &#123;<span class="keyword">return</span> a + b;&#125;);</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> num = sum([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`num=<span class="subst">$&#123;num&#125;</span>`</span>); <span class="comment">// num=15</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="객체-리터럴-173p"><a href="#객체-리터럴-173p" class="headerlink" title="객체 리터럴 (173p)"></a>객체 리터럴 (173p)</h2><ul>
+<li>interface를 이용해 코드 어시스트 지원 가능</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> PersonType &#123;</span><br><span class="line">  name: <span class="built_in">string</span>;</span><br><span class="line">  hello(<span class="keyword">this</span>: PersonType, name2: <span class="built_in">string</span>): <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> person:PersonType = &#123;</span><br><span class="line">  name: <span class="string">"Typescript"</span>,</span><br><span class="line">  hello: <span class="function"><span class="keyword">function</span> (<span class="params"><span class="keyword">this</span>: PersonType, name2: <span class="built_in">string</span></span>): <span class="title">string</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`Hello <span class="subst">$&#123;<span class="keyword">this</span>.name + name2&#125;</span>`</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">person.hello(<span class="string">"World"</span>); <span class="comment">// Hello TypescriptWorld</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="익명-함수와-타입-선언-176p"><a href="#익명-함수와-타입-선언-176p" class="headerlink" title="익명 함수와 타입 선언 (176p)"></a>익명 함수와 타입 선언 (176p)</h2><ul>
+<li>익명 함수에 타입 선언 가능</li>
+<li>함수와 타입을 분리하여 가독성 상승</li>
+<li>type 알리아스로 분리하면 재사용 가능</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> myConcat = <span class="function"><span class="keyword">function</span> (<span class="params">str1: <span class="built_in">string</span>, str2: <span class="built_in">string</span></span>): <span class="title">string</span> </span>&#123;<span class="keyword">return</span> str1 + str2;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> myConcat: <span class="function">(<span class="params">str1: <span class="built_in">string</span>, str2: <span class="built_in">string</span></span>) =&gt;</span> <span class="built_in">string</span> = <span class="function">(<span class="params">str1, str2</span>) =&gt;</span> &#123;<span class="keyword">return</span> str1 + str2;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> concatType = <span class="function">(<span class="params">str1: <span class="built_in">string</span>, str2: <span class="built_in">string</span></span>) =&gt;</span> <span class="built_in">string</span>;</span><br><span class="line"><span class="keyword">let</span> myConcat: concatType = <span class="function">(<span class="params">str1, str2</span>) =&gt;</span> &#123;<span class="keyword">return</span> str1, str2&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="콜백-함수-178p"><a href="#콜백-함수-178p" class="headerlink" title="콜백 함수 (178p)"></a>콜백 함수 (178p)</h2><ul>
+<li>콜백 함수를 호출하는 고차 함수 (higher-order function)</li>
+<li>고차 함수 이벤트가 끝난 다음 후속 처리를 하는 콜백 함수 (callback function)</li>
+<li>대표적인 예: setTimeout</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">echoFunc</span>(<span class="params">message: <span class="built_in">string</span>, callback</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> callback(message);</span><br><span class="line">&#125;</span><br><span class="line">echoFunc(<span class="string">"hello world"</span>, <span class="function"><span class="params">message</span> =&gt;</span> message); <span class="comment">// hello world</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>타입을 외부에서 설정 (콜백 함수가 간결해짐)</li>
+<li>콜백 함수를 외부에 설정 (고차 함수가 간결해짐)</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> EchoCallbackType = <span class="function">(<span class="params">message: <span class="built_in">string</span></span>) =&gt;</span> <span class="built_in">void</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> cbEcho: EchoCallbackType = <span class="function"><span class="params">message</span> =&gt;</span> message;</span><br><span class="line"><span class="keyword">let</span> cbEchoWithLength: EchoCallbackType = <span class="function"><span class="params">message</span> =&gt;</span> <span class="string">`<span class="subst">$&#123;message&#125;</span>(<span class="subst">$&#123;message.length&#125;</span>)`</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">echoFunc</span>(<span class="params">message: <span class="built_in">string</span>, callback</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> callback(message);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">echoFunc(<span class="string">"hello"</span>, cbEcho); <span class="comment">// hello</span></span><br><span class="line">echoFunc(<span class="string">"hello"</span>, cbEchoWithLength); <span class="comment">// hello(5)</span></span><br></pre></td></tr></table></figure>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/wiki/study-quick-start-typescript-5/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">다음 글</strong>
+            <div class="article-nav-title">
+                
+                    타입스크립트 스터디 7장 클래스와 인터페이스
+                
+            </div>
+        </a>
+    
+    
+        <a href="/wiki/study-quick-start-typescript-3/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">이전 글</strong>
+            <div class="article-nav-title">타입스크립트 스터디 3편</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            veverita7 &copy; 2020 
+            <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten" target="_blank" rel="noopener">wikitten</a>
+            
+                <br>
+                <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> <span id="busuanzi_value_site_pv"></span></span>
+                &nbsp;|&nbsp;
+                <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i> <span id="busuanzi_value_site_uv"></span></span>
+            
+        </div>
+    </div>
+</footer>
+
+        
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+    </div>
+</body>
+</html>

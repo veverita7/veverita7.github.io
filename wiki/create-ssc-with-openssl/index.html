@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang=ko>
+<head>
+    <meta charset="utf-8">
+    
+    <title>OpenSSL로 SSL 인증서 발급하기 | veverita7 devlog</title>
+    
+    
+        <meta name="keywords" content="network,ssl" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="시작하기 kubernetes에서 인증서로 인증하려다보니 SSL인증서가 필요해졌다. 기왕 하는김에 OpenSSL로 인증서를 발급하는 방법에 대해서 정리한다.  용어 정리하기 SSL (Secure Socket Layer)  Netscape에서 개발 SSLv3까지 개발되고 TLS로 변경   TLS (Transport Layer Security)  현재 TLS 1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenSSL로 SSL 인증서 발급하기">
+<meta property="og:url" content="http://veverita7.github.io/wiki/create-ssc-with-openssl/index.html">
+<meta property="og:site_name" content="veverita7 devlog">
+<meta property="og:description" content="시작하기 kubernetes에서 인증서로 인증하려다보니 SSL인증서가 필요해졌다. 기왕 하는김에 OpenSSL로 인증서를 발급하는 방법에 대해서 정리한다.  용어 정리하기 SSL (Secure Socket Layer)  Netscape에서 개발 SSLv3까지 개발되고 TLS로 변경   TLS (Transport Layer Security)  현재 TLS 1">
+<meta property="og:locale" content="ko_KR">
+<meta property="article:published_time" content="2020-05-14T06:46:05.000Z">
+<meta property="article:modified_time" content="2020-07-22T08:55:44.239Z">
+<meta property="article:author" content="veverita7">
+<meta property="article:tag" content="network">
+<meta property="article:tag" content="ssl">
+<meta name="twitter:card" content="summary">
+    
+
+    
+
+    
+        <link rel="icon" href="/favicon.ico" />
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/open-sans/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    
+<script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="veverita7 devlog" type="application/atom+xml">
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                
+                <span class="site-title">veverita7 devlog</span>
+            </a>
+            <nav id="main-nav">
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="검색" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '포스트',
+            PAGES: 'Pages',
+            CATEGORIES: '카테고리',
+            TAGS: '태그',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="검색" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id='categories'>
+        <h3 class="widget-title">
+            <span>카테고리</span>
+            &nbsp;
+            <a id='allExpand' href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            javascript
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/iife/">IIFE 란?</a></li>  <li class="file"><a href="/wiki/closure/">클로저(Closure)</a></li>  <li class="file"><a href="/wiki/use-of-window-object/">window 객체 활용법</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            network
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file active"><a href="/wiki/create-ssc-with-openssl/">OpenSSL로 SSL 인증서 발급하기</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            typescript
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/study-quick-start-typescript-1/">타입스크립트 스터디 1편</a></li>  <li class="file"><a href="/wiki/study-quick-start-typescript-2/">타입스크립트 스터디 2편</a></li>  <li class="file"><a href="/wiki/study-quick-start-typescript-3/">타입스크립트 스터디 3편</a></li>  <li class="file"><a href="/wiki/study-quick-start-typescript-4/">타입스크립트 스터디 4편</a></li>  <li class="file"><a href="/wiki/study-quick-start-typescript-5/">타입스크립트 스터디 7장 클래스와 인터페이스</a></li>  <li class="file"><a href="/wiki/study-quick-start-typescript-6/">타입스크립트 스터디 8장 모듈</a></li>  <li class="file"><a href="/wiki/study-quick-start-typescript-7/">타입스크립트 스터디 9장 고급타입</a></li>  <li class="file"><a href="/wiki/study-quick-start-typescript-8/">타입스크립트 스터디 10장 타입</a></li>  <li class="file"><a href="/wiki/study-quick-start-typescript-11/">타입스크립트 스터디 11장 제네릭</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-create-ssc-with-openssl" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/network/">network</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/network/" rel="tag">network</a>, <a class="tag-link" href="/tags/ssl/" rel="tag">ssl</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/create-ssc-with-openssl/">
+            <time datetime="2020-05-14T06:46:05.000Z" itemprop="datePublished">2020-05-14</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+                        
+                            <div class="article-meta-button">
+                                <a href='https://github.com/veverita7/veverita7.github.io/raw/writing/source/_posts/create-ssc-with-openssl.md' target="_blank" rel="noopener"> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a href='https://github.com/veverita7/veverita7.github.io/edit/writing/source/_posts/create-ssc-with-openssl.md' target="_blank" rel="noopener"> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a href='https://github.com/veverita7/veverita7.github.io/commits/writing/source/_posts/create-ssc-with-openssl.md' target="_blank" rel="noopener"> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            OpenSSL로 SSL 인증서 발급하기
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">카탈로그</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#시작하기"><span class="toc-number">1.</span> <span class="toc-text">시작하기</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#용어-정리하기"><span class="toc-number">2.</span> <span class="toc-text">용어 정리하기</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#인증서-발급-순서"><span class="toc-number">3.</span> <span class="toc-text">인증서 발급 순서</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#인증서-발급"><span class="toc-number">4.</span> <span class="toc-text">인증서 발급</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CA-인증서-발급"><span class="toc-number">4.1.</span> <span class="toc-text">CA 인증서 발급</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#인증서-발급-1"><span class="toc-number">4.2.</span> <span class="toc-text">인증서 발급</span></a></li></ol></li></ol>
+                </div>
+            
+        
+        
+            <h2 id="시작하기"><a href="#시작하기" class="headerlink" title="시작하기"></a>시작하기</h2><ul>
+<li><code>kubernetes</code>에서 인증서로 인증하려다보니 <code>SSL인증서</code>가 필요해졌다.</li>
+<li>기왕 하는김에 <code>OpenSSL</code>로 인증서를 발급하는 방법에 대해서 정리한다.</li>
+</ul>
+<h2 id="용어-정리하기"><a href="#용어-정리하기" class="headerlink" title="용어 정리하기"></a>용어 정리하기</h2><ul>
+<li><p>SSL (Secure Socket Layer)</p>
+<ul>
+<li>Netscape에서 개발</li>
+<li>SSLv3까지 개발되고 TLS로 변경</li>
+</ul>
+</li>
+<li><p>TLS (Transport Layer Security)</p>
+<ul>
+<li>현재 TLS 1.2가 최신</li>
+</ul>
+</li>
+<li><p>CA (Certificate Authority)</p>
+<ul>
+<li>인증 기관</li>
+</ul>
+</li>
+<li><p>SSC (Self Signed Certificate)</p>
+<ul>
+<li>인증서는 내 공개키가 맞다고 CA가 개인키로 서명한 데이터</li>
+<li>모든 인증서는 CA가 필요</li>
+<li>그런데 최상위 인증기관(ROOT CA)는 상위 인증기관이 없음</li>
+<li>그래서 ROOT CA는 자기 공개키를 자기 개인키로 서명하여 인증서 발급</li>
+<li>이게 SSC(스스로 서명한 인증서) 임</li>
+<li>개인이 <code>OpenSSL</code>로 만든 SSC로 발급한 인증서를 <code>사설인증서</code>라고 함</li>
+</ul>
+</li>
+<li><p>CSR (Certificate Signing Request)</p>
+<ul>
+<li>CA에 인증서 발급을 요청하는 파일 (PKCS#10 - RFC2986)</li>
+<li>공개키 정보와 사용하는 알고리즘 정보 등이 담겨있음</li>
+</ul>
+</li>
+<li><p>crt</p>
+<ul>
+<li>리눅스 기반 시스템에서 사용하는 인증서 파일 확장자</li>
+<li>보통 인증서 파일의 확장자로 사용</li>
+</ul>
+</li>
+<li><p>key</p>
+<ul>
+<li>보통 개인키 파일의 확장자로 사용</li>
+</ul>
+</li>
+<li><p>PKI (Public Key Infrastructure)</p>
+<ul>
+<li>공개키 기반 구조</li>
+</ul>
+</li>
+<li><p>X.509</p>
+<ul>
+<li>공개키 기반 인증서 형식 표준</li>
+</ul>
+</li>
+</ul>
+<h2 id="인증서-발급-순서"><a href="#인증서-발급-순서" class="headerlink" title="인증서 발급 순서"></a>인증서 발급 순서</h2><ol>
+<li><p>CA 인증서 발급</p>
+<ol>
+<li>CA의 개인키 생성</li>
+<li>CA의 CSR 생성</li>
+<li>개인키와 CSR로 인증서 발급</li>
+</ol>
+</li>
+<li><p>CA 인증서를 이용해 사설인증서 발급</p>
+<ol>
+<li>개인키 생성</li>
+<li>CSR 생성</li>
+<li>CSR과 CA 개인키, CA 인증서로 인증서 발급</li>
+</ol>
+</li>
+</ol>
+<h2 id="인증서-발급"><a href="#인증서-발급" class="headerlink" title="인증서 발급"></a>인증서 발급</h2><h3 id="CA-인증서-발급"><a href="#CA-인증서-발급" class="headerlink" title="CA 인증서 발급"></a>CA 인증서 발급</h3><ol>
+<li>CA의 개인키 생성<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> openssl genrsa -aes256 -out rootca.key 2048</span></span><br></pre></td></tr></table></figure></li>
+<li>CA의 CSR 생성<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> openssl req -new -key rootca.key -out rootca.csr</span></span><br></pre></td></tr></table></figure></li>
+<li>개인키와 CSR로 인증서 발급<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> openssl x509 -req \</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> -<span class="keyword">in</span> rootca.csr \</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> -signkey rootca.key \</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> -out rootca.crt \</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> -days 365</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="인증서-발급-1"><a href="#인증서-발급-1" class="headerlink" title="인증서 발급"></a>인증서 발급</h3><ol>
+<li>개인키 생성<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> openssl genrsa -aes256 -out tls.key</span></span><br></pre></td></tr></table></figure></li>
+<li>CSR 생성<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> openssl req -new -key tls.key -out tls.csr</span></span><br></pre></td></tr></table></figure></li>
+<li>인증서 발급<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -req \</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> -<span class="keyword">in</span> tls.csr \</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> -CA rootca.crt \</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> -CAkey rootca.key \</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> -CAcreateserial \</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> -out tls.crt \</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> -days 365</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/wiki/iife/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">다음 글</strong>
+            <div class="article-nav-title">
+                
+                    IIFE 란?
+                
+            </div>
+        </a>
+    
+    
+        <a href="/wiki/study-quick-start-typescript-11/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">이전 글</strong>
+            <div class="article-nav-title">타입스크립트 스터디 11장 제네릭</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            veverita7 &copy; 2020 
+            <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten" target="_blank" rel="noopener">wikitten</a>
+            
+                <br>
+                <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> <span id="busuanzi_value_site_pv"></span></span>
+                &nbsp;|&nbsp;
+                <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i> <span id="busuanzi_value_site_uv"></span></span>
+            
+        </div>
+    </div>
+</footer>
+
+        
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+    </div>
+</body>
+</html>

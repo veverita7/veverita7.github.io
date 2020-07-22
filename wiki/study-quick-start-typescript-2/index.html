@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang=ko>
+<head>
+    <meta charset="utf-8">
+    
+    <title>타입스크립트 스터디 2편 | veverita7 devlog</title>
+    
+    
+        <meta name="keywords" content="study,typescript" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="var 선언자 (76p) 호이스팅(hoisting) 발생 끌어올린다는 의미로 선언된 위치와 관계없이 스코프의 최상위로 끌어올려 같은 스코프라면 어디서든 호출 함수 레벨 스코프를 지원해서 함수안에서 선언한 변수는 함수 안에서만 유효 블록 레벨 스코프를 지원하지 않아서 블록 내부와 외부가 같은 스코프로 인식  12345var status &#x3D; &quot;sad&quot;;if (">
+<meta property="og:type" content="article">
+<meta property="og:title" content="타입스크립트 스터디 2편">
+<meta property="og:url" content="http://veverita7.github.io/wiki/study-quick-start-typescript-2/index.html">
+<meta property="og:site_name" content="veverita7 devlog">
+<meta property="og:description" content="var 선언자 (76p) 호이스팅(hoisting) 발생 끌어올린다는 의미로 선언된 위치와 관계없이 스코프의 최상위로 끌어올려 같은 스코프라면 어디서든 호출 함수 레벨 스코프를 지원해서 함수안에서 선언한 변수는 함수 안에서만 유효 블록 레벨 스코프를 지원하지 않아서 블록 내부와 외부가 같은 스코프로 인식  12345var status &#x3D; &quot;sad&quot;;if (">
+<meta property="og:locale" content="ko_KR">
+<meta property="article:published_time" content="2020-03-14T12:24:35.000Z">
+<meta property="article:modified_time" content="2020-07-22T08:55:44.239Z">
+<meta property="article:author" content="veverita7">
+<meta property="article:tag" content="study">
+<meta property="article:tag" content="typescript">
+<meta name="twitter:card" content="summary">
+    
+
+    
+
+    
+        <link rel="icon" href="/favicon.ico" />
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/open-sans/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    
+<script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="veverita7 devlog" type="application/atom+xml">
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                
+                <span class="site-title">veverita7 devlog</span>
+            </a>
+            <nav id="main-nav">
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="검색" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '포스트',
+            PAGES: 'Pages',
+            CATEGORIES: '카테고리',
+            TAGS: '태그',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="검색" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id='categories'>
+        <h3 class="widget-title">
+            <span>카테고리</span>
+            &nbsp;
+            <a id='allExpand' href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            javascript
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/iife/">IIFE 란?</a></li>  <li class="file"><a href="/wiki/closure/">클로저(Closure)</a></li>  <li class="file"><a href="/wiki/use-of-window-object/">window 객체 활용법</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            network
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/create-ssc-with-openssl/">OpenSSL로 SSL 인증서 발급하기</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            typescript
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/study-quick-start-typescript-1/">타입스크립트 스터디 1편</a></li>  <li class="file active"><a href="/wiki/study-quick-start-typescript-2/">타입스크립트 스터디 2편</a></li>  <li class="file"><a href="/wiki/study-quick-start-typescript-3/">타입스크립트 스터디 3편</a></li>  <li class="file"><a href="/wiki/study-quick-start-typescript-4/">타입스크립트 스터디 4편</a></li>  <li class="file"><a href="/wiki/study-quick-start-typescript-5/">타입스크립트 스터디 7장 클래스와 인터페이스</a></li>  <li class="file"><a href="/wiki/study-quick-start-typescript-6/">타입스크립트 스터디 8장 모듈</a></li>  <li class="file"><a href="/wiki/study-quick-start-typescript-7/">타입스크립트 스터디 9장 고급타입</a></li>  <li class="file"><a href="/wiki/study-quick-start-typescript-8/">타입스크립트 스터디 10장 타입</a></li>  <li class="file"><a href="/wiki/study-quick-start-typescript-11/">타입스크립트 스터디 11장 제네릭</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-study-quick-start-typescript-2" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/typescript/">typescript</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/study/" rel="tag">study</a>, <a class="tag-link" href="/tags/typescript/" rel="tag">typescript</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/study-quick-start-typescript-2/">
+            <time datetime="2020-03-14T12:24:35.000Z" itemprop="datePublished">2020-03-14</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+                        
+                            <div class="article-meta-button">
+                                <a href='https://github.com/veverita7/veverita7.github.io/raw/writing/source/_posts/study-quick-start-typescript-2.md' target="_blank" rel="noopener"> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a href='https://github.com/veverita7/veverita7.github.io/edit/writing/source/_posts/study-quick-start-typescript-2.md' target="_blank" rel="noopener"> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a href='https://github.com/veverita7/veverita7.github.io/commits/writing/source/_posts/study-quick-start-typescript-2.md' target="_blank" rel="noopener"> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            타입스크립트 스터디 2편
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">카탈로그</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#var-선언자-76p"><span class="toc-number">1.</span> <span class="toc-text">var 선언자 (76p)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#let-선언자-78p"><span class="toc-number">2.</span> <span class="toc-text">let 선언자 (78p)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#const-선언자-80p"><span class="toc-number">3.</span> <span class="toc-text">const 선언자 (80p)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#타입-검사-82p"><span class="toc-number">4.</span> <span class="toc-text">타입 검사 (82p)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#기본-타입-86p"><span class="toc-number">5.</span> <span class="toc-text">기본 타입 (86p)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#기타-타입-89p"><span class="toc-number">6.</span> <span class="toc-text">기타 타입 (89p)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#비교-방법의-차이-95p"><span class="toc-number">7.</span> <span class="toc-text">비교 방법의 차이 (95p)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#타입스크립트-내장-타입-102p"><span class="toc-number">8.</span> <span class="toc-text">타입스크립트 내장 타입 (102p)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#switch-120p"><span class="toc-number">9.</span> <span class="toc-text">switch (120p)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#for-123p"><span class="toc-number">10.</span> <span class="toc-text">for (123p)</span></a></li></ol>
+                </div>
+            
+        
+        
+            <h2 id="var-선언자-76p"><a href="#var-선언자-76p" class="headerlink" title="var 선언자 (76p)"></a>var 선언자 (76p)</h2><ul>
+<li>호이스팅(hoisting) 발생</li>
+<li>끌어올린다는 의미로 선언된 위치와 관계없이 스코프의 최상위로 끌어올려 같은 스코프라면 어디서든 호출</li>
+<li>함수 레벨 스코프를 지원해서 함수안에서 선언한 변수는 함수 안에서만 유효</li>
+<li>블록 레벨 스코프를 지원하지 않아서 블록 내부와 외부가 같은 스코프로 인식</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> status = <span class="string">"sad"</span>;</span><br><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> status = <span class="string">"happy"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(status); <span class="comment">// "happy"</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="let-선언자-78p"><a href="#let-선언자-78p" class="headerlink" title="let 선언자 (78p)"></a>let 선언자 (78p)</h2><ul>
+<li>es6(es2015)에서 지원</li>
+<li>호이스팅 방지</li>
+<li>블록 레벨 스코프 지원</li>
+<li>같은 블록 내에서 같은 이름으로 중복 선언 불가</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> status = <span class="string">"sad"</span>;</span><br><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> status = <span class="string">"happy"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(status); <span class="comment">// "sad"</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="const-선언자-80p"><a href="#const-선언자-80p" class="headerlink" title="const 선언자 (80p)"></a>const 선언자 (80p)</h2><ul>
+<li>let 선언자와 특성이 비슷<ul>
+<li>es6(es2015)에서 지원</li>
+<li>호이스팅 방지</li>
+<li>블록 레벨 스코프 지원</li>
+</ul>
+</li>
+<li>let 선언자와 차이는 상수라서 읽기 전용</li>
+<li>객체 리터럴 설정시 객체 재할당은 안되지만 속성으로는 변경 가능</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> profile = &#123;<span class="attr">name</span>: <span class="string">"park"</span>&#125;;</span><br><span class="line">profile = &#123;<span class="attr">name</span>: <span class="string">"kim"</span>&#125;; <span class="comment">// 불가능</span></span><br><span class="line">profile.name = <span class="string">"kim"</span>; <span class="comment">// 가능</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="타입-검사-82p"><a href="#타입-검사-82p" class="headerlink" title="타입 검사 (82p)"></a>타입 검사 (82p)</h2><table>
+<thead>
+<tr>
+<th>타입 검사 종류</th>
+<th>언어</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>정적 타입 검사 (statically type checking)</td>
+<td>java, c</td>
+</tr>
+<tr>
+<td>동적 타입 검사 (dynamically type checking)</td>
+<td>javascript</td>
+</tr>
+<tr>
+<td>점진적 타입 검사 (gradually type checking)</td>
+<td>typescript, python</td>
+</tr>
+</tbody></table>
+<p>점진적 타입 검사는 컴파일 시간에 타입 검사를 수행하면서 필요에 따라 사입 선언의 생략을 허용한다.</p>
+<h2 id="기본-타입-86p"><a href="#기본-타입-86p" class="headerlink" title="기본 타입 (86p)"></a>기본 타입 (86p)</h2><ul>
+<li>string<ul>
+<li>타입스크립트에서 큰따옴표 이용 권장</li>
+<li>역따옴표로 내장 표현식 가능 (${variableName})</li>
+</ul>
+</li>
+<li>number</li>
+<li>boolean</li>
+<li>symbol (95p 보강)<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> hello1 = Symbol(); <span class="comment">// 고유하고 수정 불가능한 데이터 타입</span></span><br><span class="line"><span class="keyword">let</span> hello2 = Symbol(<span class="string">"hello"</span>); <span class="comment">// "hello"는 symbol을 설명</span></span><br><span class="line"><span class="keyword">let</span> hello3 = Symbol(<span class="string">"hello"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(hello2 == hello3); <span class="comment">// false</span></span><br></pre></td></tr></table></figure></li>
+<li>enum (100p 보강)<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> WeekDay &#123;Mon, Tue, Wed&#125;</span><br><span class="line"><span class="keyword">let</span> day: WeekDay = WeekDay.Mon;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(Weekday));</span><br><span class="line"><span class="comment">// &#123;"0":"Mon","1":"Tue","3":"Wed","Mon":0,"Tue":1,"Wed":2&#125;</span></span><br><span class="line"><span class="comment">// 키와 값으로 속성이 두배</span></span><br></pre></td></tr></table></figure></li>
+<li>string literal<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> EventType = <span class="string">"keyup"</span> | <span class="string">"mouseover"</span>;</span><br><span class="line"><span class="comment">// "keyup" 또는 "mouseover" 문자열만 허용</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><strong>symbol</strong>이랑 <strong>enum</strong>이 이해가 필요하다. (95p, 100p)</p>
+<h2 id="기타-타입-89p"><a href="#기타-타입-89p" class="headerlink" title="기타 타입 (89p)"></a>기타 타입 (89p)</h2><ul>
+<li>union<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x: <span class="built_in">string</span> | <span class="built_in">number</span>;</span><br><span class="line"><span class="comment">// string 또는 number를 허용</span></span><br></pre></td></tr></table></figure></li>
+<li>intersection<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> Cat &#123;leg: <span class="built_in">number</span>;&#125;</span><br><span class="line"><span class="keyword">interface</span> Bird &#123;wing: <span class="built_in">number</span>;&#125;</span><br><span class="line"><span class="keyword">let</span> birdCat: Cat &amp; Bird = &#123;leg: <span class="number">4</span>, wing: <span class="number">2</span>&#125;;</span><br><span class="line"><span class="comment">// 두 타입을 합쳐 하나로 만듦</span></span><br></pre></td></tr></table></figure></li>
+<li>void, null, undefined<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> val1 = <span class="literal">null</span>; <span class="comment">// 빈 값으로 초기화한것</span></span><br><span class="line"><span class="keyword">var</span> val2; <span class="comment">// 빈 값으로도 초기화되지 않은것</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="비교-방법의-차이-95p"><a href="#비교-방법의-차이-95p" class="headerlink" title="비교 방법의 차이 (95p)"></a>비교 방법의 차이 (95p)</h2><table>
+<thead>
+<tr>
+<th>비교 방법</th>
+<th>의미</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>==</td>
+<td>값 비교</td>
+</tr>
+<tr>
+<td>===</td>
+<td>값과 타입 함께 비교</td>
+</tr>
+</tbody></table>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="literal">undefined</span> == <span class="literal">null</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="literal">undefined</span> === <span class="literal">null</span>); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="타입스크립트-내장-타입-102p"><a href="#타입스크립트-내장-타입-102p" class="headerlink" title="타입스크립트 내장 타입 (102p)"></a>타입스크립트 내장 타입 (102p)</h2><ul>
+<li>any &amp; object<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> notSure: <span class="built_in">any</span> = <span class="number">4</span>;</span><br><span class="line">notSure.ifItExists(); <span class="comment">// okay, ifItExists might exist at runtime</span></span><br><span class="line">notSure.toFixed(); <span class="comment">// okay, toFixed exists (but the compiler doesn't check)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> prettySure: <span class="built_in">Object</span> = <span class="number">4</span>;</span><br><span class="line">prettySure.toFixed(); <span class="comment">// Error: Property 'toFixed' doesn't exist on type 'Object'.</span></span><br><span class="line"><span class="comment">// Property 'toFixed' does not exist on type 'Object'.</span></span><br><span class="line"><span class="comment">// https://www.typescriptlang.org/docs/handbook/basic-types.html</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// any와 object는 둘다 타입 구분 없이 값을 할당</span></span><br><span class="line"><span class="comment">// any는 컴파일러가 체크하지 않고 object는 컴파일러가 체크</span></span><br></pre></td></tr></table></figure></li>
+<li>array<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> fruits: <span class="built_in">string</span>[] = [<span class="string">"apple"</span>, <span class="string">"banana"</span>, <span class="string">"mango"</span>];</span><br><span class="line"><span class="keyword">let</span> vals1: <span class="built_in">any</span>[] = [<span class="number">1</span>, <span class="string">"hi"</span>, <span class="literal">true</span>];</span><br><span class="line"><span class="keyword">let</span> vals2: (<span class="built_in">number</span> | <span class="built_in">string</span> | <span class="built_in">boolean</span>)[] = [<span class="number">1</span>, <span class="string">"hi"</span>, <span class="literal">true</span>];</span><br><span class="line"><span class="comment">// union을 이용해 배열 요소를 제한</span></span><br></pre></td></tr></table></figure></li>
+<li>tuple<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> x: [<span class="built_in">string</span>, <span class="built_in">number</span>] = [<span class="string">"tuple"</span>, <span class="number">100</span>];</span><br><span class="line"><span class="built_in">console</span>.log(x[<span class="number">0</span>]);</span><br><span class="line"><span class="built_in">console</span>.log(x[<span class="number">1</span>]);</span><br><span class="line"><span class="comment">// tuple</span></span><br><span class="line"><span class="comment">// 100</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="switch-120p"><a href="#switch-120p" class="headerlink" title="switch (120p)"></a>switch (120p)</h2><ul>
+<li>fall-through<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> input = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">switch</span> (input % <span class="number">2</span>) &#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"number = 0"</span>);</span><br><span class="line">  <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"number = 1"</span>);</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// "number = 1"과 "number = 2"가 출력</span></span><br><span class="line"><span class="comment">// "compilerOptions.noFallthroughCasesInSwitch = true/false"로 설정 가능</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="for-123p"><a href="#for-123p" class="headerlink" title="for (123p)"></a>for (123p)</h2><ul>
+<li>for in<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> islands = &#123;<span class="string">"a"</span>: <span class="string">"Jejudo"</span>, <span class="string">"b"</span>: <span class="string">"Geojedo"</span>, <span class="string">"c"</span>: <span class="string">"Jindo"</span>&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> property <span class="keyword">in</span> islands) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(property, islands[property]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// a Jejudo</span></span><br><span class="line"><span class="comment">// b Geojedo</span></span><br><span class="line"><span class="comment">// c Jindo</span></span><br><span class="line"><span class="comment">// es5 지원</span></span><br></pre></td></tr></table></figure></li>
+<li>for of<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> value of [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="comment">// 3</span></span><br><span class="line"><span class="comment">// es6(es2015) 지원</span></span><br><span class="line"><span class="comment">// Symbol.iterator의 구현을 통해 각 이터레이션 값의 요소를 가져와서 const 사용 가능하다는데 이해가 잘 안됨</span></span><br></pre></td></tr></table></figure></li>
+<li>for of (map)<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> itMap = <span class="keyword">new</span> Map([[<span class="string">"one"</span>, <span class="number">1</span>], [<span class="string">"one"</span>, <span class="number">2</span>]]);</span><br><span class="line">itMap.set(<span class="string">"one"</span>, <span class="number">3</span>);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> entry of itMap) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(entry);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ['one', 3]</span></span><br><span class="line"><span class="comment">// map은 유일한 키만 허용</span></span><br><span class="line"><span class="comment">// es6(es2015) 지원</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> itMap: &#123;[key: <span class="built_in">string</span>]: <span class="built_in">number</span>;&#125; = &#123;&#125;;</span><br><span class="line">itMap[<span class="string">"one"</span>] = <span class="number">1</span>;</span><br><span class="line">itMap[<span class="string">"one"</span>] = <span class="number">2</span>;</span><br><span class="line">itMap[<span class="string">"one"</span>] = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> entry of itMap) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(entry);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 위의 내용을 es5로 구현</span></span><br></pre></td></tr></table></figure></li>
+<li>for of (set)<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> itSet = <span class="keyword">new</span> Set([<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>, <span class="string">"a"</span>]);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> value of itSet) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// a</span></span><br><span class="line"><span class="comment">// b</span></span><br><span class="line"><span class="comment">// c</span></span><br><span class="line"><span class="comment">// es6(es2015) 지원</span></span><br><span class="line"><span class="comment">// set은 유일한 값을 저장</span></span><br></pre></td></tr></table></figure></li>
+<li>[Symbol.iterator]()<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">2</span>];</span><br><span class="line"><span class="keyword">let</span> itObj = arr[Symbol.iterator]();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"1:"</span>, <span class="keyword">typeof</span> itObj);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"2:"</span>, itObj.next());</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"3:"</span>, itObj.next());</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"4:"</span>, itObj.next());</span><br><span class="line"><span class="comment">// 1: object</span></span><br><span class="line"><span class="comment">// 2: &#123;value: 1, done: false&#125;</span></span><br><span class="line"><span class="comment">// 3: &#123;value: 2, done: false&#125;</span></span><br><span class="line"><span class="comment">// 4: &#123;value: undefined, done: true&#125;</span></span><br><span class="line"><span class="comment">// es6(es2015) 지원</span></span><br><span class="line"><span class="comment">// iterable이 약점이다..</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/wiki/study-quick-start-typescript-3/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">다음 글</strong>
+            <div class="article-nav-title">
+                
+                    타입스크립트 스터디 3편
+                
+            </div>
+        </a>
+    
+    
+        <a href="/wiki/study-quick-start-typescript-1/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">이전 글</strong>
+            <div class="article-nav-title">타입스크립트 스터디 1편</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            veverita7 &copy; 2020 
+            <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten" target="_blank" rel="noopener">wikitten</a>
+            
+                <br>
+                <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> <span id="busuanzi_value_site_pv"></span></span>
+                &nbsp;|&nbsp;
+                <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i> <span id="busuanzi_value_site_uv"></span></span>
+            
+        </div>
+    </div>
+</footer>
+
+        
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+    </div>
+</body>
+</html>
