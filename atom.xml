@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://veverita7.github.io/"/>
-  <updated>2020-07-22T14:22:17.215Z</updated>
+  <updated>2020-07-23T11:55:30.554Z</updated>
   <id>http://veverita7.github.io/</id>
   
   <author>
@@ -15,6 +15,70 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>javascript - new에 대해서 알아보자.</title>
+    <link href="http://veverita7.github.io/wiki/new/"/>
+    <id>http://veverita7.github.io/wiki/new/</id>
+    <published>2020-07-23T11:27:43.000Z</published>
+    <updated>2020-07-23T11:55:30.554Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>이 페이지는 <a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/new" target="_blank" rel="noopener">MDN 문서</a>를 읽고 정리했습니다.</p></blockquote><p>javascript는 java의 몇 가지 문법을 사용하고 있는데 그 중 하나가 <code>new</code> 이다.</p><p>java와 다른점은 <code>function</code>을 사용한다는 점이다.</p><p>아래 예제를 보자.</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Car</span>(<span class="params">maker, model, engine</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.maker = maker;</span><br><span class="line">  <span class="keyword">this</span>.model = model;</span><br><span class="line">  <span class="keyword">this</span>.engine = engine;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Car; <span class="comment">// Car &#123;maker: undefined, model: undefined, engine: undefined&#125;</span></span><br><span class="line"><span class="keyword">new</span> Car(); <span class="comment">// Car &#123;maker: undefined, model: undefined, engine: undefined&#125;</span></span><br><span class="line"><span class="keyword">new</span> Car(<span class="string">"kia"</span>); <span class="comment">// Car &#123;maker: "kia", model: undefined, engine: undefined&#125;</span></span><br><span class="line"><span class="keyword">new</span> Car(<span class="string">"kia"</span>, <span class="string">"k5"</span>, <span class="string">"2.0"</span>); <span class="comment">// Car &#123;maker: "kia", model: "k5", engine: "2.0"&#125;</span></span><br></pre></td></tr></table></figure><p>객체 생성시 매개변수가 제한되지 않고 <code>new Car</code> 와 같은 방법도 된다는 것이 특징이다.</p><p><code>Car</code> 객체가 생성되는 과정을 좀 더 자세히 보면 다음과 같다.</p><ol><li><p><code>Car.prototype</code>을 상속하는 새로운 객체가 생성</p></li><li><p>생성자 함수 <code>Car</code>가 호출</p><ul><li><p>호출될때 <code>매개변수</code>와 (1)에서 생성된 객체에 바인드 된 <code>this</code>가 <code>Car</code>에 전달</p></li><li><p><code>매개변수</code>가 없는 경우 <code>this</code>만 <code>Car</code>에 전달</p></li></ul></li><li><p>생성자 함수 <code>Car</code>에 의해 최종 결과 리턴</p><ul><li>생성자 함수가 명시적으로 객체를 리턴하지 않으면 (1)에서 생성된 객체가 리턴</li></ul></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;이 페이지는 &lt;a href=&quot;https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/new&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;
+      
+    
+    </summary>
+    
+    
+      <category term="javascript" scheme="http://veverita7.github.io/categories/javascript/"/>
+    
+    
+      <category term="javascript" scheme="http://veverita7.github.io/tags/javascript/"/>
+    
+      <category term="new" scheme="http://veverita7.github.io/tags/new/"/>
+    
+      <category term="prototype" scheme="http://veverita7.github.io/tags/prototype/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>javascript - prototype에 대해서 알아보자.</title>
+    <link href="http://veverita7.github.io/wiki/prototype-md/"/>
+    <id>http://veverita7.github.io/wiki/prototype-md/</id>
+    <published>2020-07-23T10:35:07.000Z</published>
+    <updated>2020-07-23T11:24:43.649Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>이 페이지는 <a href="https://developer.mozilla.org/ko/docs/Learn/JavaScript/Objects/Object_prototypes" target="_blank" rel="noopener">MDN 문서</a>를 읽고 정리했습니다.</p></blockquote><h3 id="간단하게-prototype이란"><a href="#간단하게-prototype이란" class="headerlink" title="간단하게 prototype이란?"></a>간단하게 prototype이란?</h3><p>javascript는 prototype 기반 언어라고 하는데 prototype이 무엇인지 알아보자.</p><p><a href="https://ko.wikipedia.org/wiki/%ED%94%84%EB%A1%9C%ED%86%A0%ED%83%80%EC%9E%85_%EA%B8%B0%EB%B0%98_%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D" target="_blank" rel="noopener">wiki</a>에 보면 prototype 기반 언어에 대해 설명이 있다.</p><blockquote><p>|<br>프로토타입 기반 프로그래밍은 객체지향 프로그래밍의 한 형태의 갈래로 클래스가 없고, 클래스 기반 언어에서 상속을 사용하는 것과는 다르게, 객체를 원형(프로토타입)으로 하여 복제의 과정을 통하여 객체의 동작 방식을 다시 사용할 수 있다.</p></blockquote><p>객체를 원형으로 하여 복제의 과정을 통해 객체지향 개념을 지원한다는게 무슨말인지 어렵다.</p><p>간단하게 이야기하면 java가 class로 객제치향을 사용한다면 javascript는 prototype으로 객체지향을 사용한다는 것이다.</p><p>class를 사용하지 않기 때문에 상속 기능은 없지만 prototype을 이용해 비슷한 기능을 지원한다.</p><p>참고로 es6부터는 class가 추가되었다.</p><p>그럼 prototype에 대해서 예제로 알아보자.</p><h3 id="예제와-함께하는-prototype"><a href="#예제와-함께하는-prototype" class="headerlink" title="예제와 함께하는 prototype"></a>예제와 함께하는 prototype</h3><p>javascript는 new를 이용하여 java와 비슷하게 객체를 생성할 수 있다.</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Car</span>(<span class="params">color, doors</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.color = color;</span><br><span class="line">    <span class="keyword">this</span>.doors = doors;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> sportscar = <span class="keyword">new</span> Car(<span class="string">"red"</span>, <span class="number">2</span>);</span><br><span class="line"><span class="keyword">var</span> sedan = <span class="keyword">new</span> Car(<span class="string">"black"</span>, <span class="number">4</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(sportscar.color); <span class="comment">// red</span></span><br><span class="line"><span class="built_in">console</span>.log(sportscar.doors); <span class="comment">// 2</span></span><br><span class="line"><span class="built_in">console</span>.log(sedan.color); <span class="comment">// bloack</span></span><br><span class="line"><span class="built_in">console</span>.log(sedan.doors); <span class="comment">// 4</span></span><br></pre></td></tr></table></figure><p>java의 class와 유사하다는걸 느낄 수 있다.</p><p>그런데 여기에 공통의 속성을 추가하고 싶다면 어떻게 해야할까.</p><p>이럴때 prototype을 사용하면 편리하게 기능을 제공할 수 있다.</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Car</span>(<span class="params">color, doors</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.color = color;</span><br><span class="line">    <span class="keyword">this</span>.doors = doors;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Car.prototype.wheels = <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> sportscar = <span class="keyword">new</span> Car(<span class="string">"red"</span>, <span class="number">2</span>);</span><br><span class="line"><span class="keyword">var</span> sedan = <span class="keyword">new</span> Car(<span class="string">"black"</span>, <span class="number">4</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(sportscar.color); <span class="comment">// red</span></span><br><span class="line"><span class="built_in">console</span>.log(sportscar.doors); <span class="comment">// 2</span></span><br><span class="line"><span class="built_in">console</span>.log(sportscar.wheels); <span class="comment">// 4</span></span><br><span class="line"><span class="built_in">console</span>.log(sedan.color); <span class="comment">// bloack</span></span><br><span class="line"><span class="built_in">console</span>.log(sedan.doors); <span class="comment">// 4</span></span><br><span class="line"><span class="built_in">console</span>.log(sedan.wheels); <span class="comment">// 4</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;이 페이지는 &lt;a href=&quot;https://developer.mozilla.org/ko/docs/Learn/JavaScript/Objects/Object_prototypes&quot; target=&quot;_blank&quot; rel=&quot;noope
+      
+    
+    </summary>
+    
+    
+      <category term="javascript" scheme="http://veverita7.github.io/categories/javascript/"/>
+    
+    
+      <category term="javascript" scheme="http://veverita7.github.io/tags/javascript/"/>
+    
+      <category term="new" scheme="http://veverita7.github.io/tags/new/"/>
+    
+      <category term="prototype" scheme="http://veverita7.github.io/tags/prototype/"/>
+    
+      <category term="object" scheme="http://veverita7.github.io/tags/object/"/>
+    
+  </entry>
   
   <entry>
     <title>window 객체 활용법</title>

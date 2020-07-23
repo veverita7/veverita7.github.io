@@ -3,18 +3,25 @@
 <head>
     <meta charset="utf-8">
     
-    <title>아카이브: 2020/7 | veverita7 devlog</title>
+    <title>javascript - new에 대해서 알아보자. | veverita7 devlog</title>
     
     
-        <meta name="keywords" content="veverita7 devlog" />
+        <meta name="keywords" content="javascript,new,prototype" />
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta property="og:type" content="website">
-<meta property="og:title" content="veverita7 devlog">
-<meta property="og:url" content="http://veverita7.github.io/archives/2020/07/index.html">
+    <meta name="description" content="이 페이지는 MDN 문서를 읽고 정리했습니다.  javascript는 java의 몇 가지 문법을 사용하고 있는데 그 중 하나가 new 이다. java와 다른점은 function을 사용한다는 점이다. 아래 예제를 보자. 12345678910function Car(maker, model, engine) &amp;#123;  this.maker &#x3D; maker;  th">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript - new에 대해서 알아보자.">
+<meta property="og:url" content="http://veverita7.github.io/wiki/new/index.html">
 <meta property="og:site_name" content="veverita7 devlog">
+<meta property="og:description" content="이 페이지는 MDN 문서를 읽고 정리했습니다.  javascript는 java의 몇 가지 문법을 사용하고 있는데 그 중 하나가 new 이다. java와 다른점은 function을 사용한다는 점이다. 아래 예제를 보자. 12345678910function Car(maker, model, engine) &amp;#123;  this.maker &#x3D; maker;  th">
 <meta property="og:locale" content="ko_KR">
+<meta property="article:published_time" content="2020-07-23T11:27:43.000Z">
+<meta property="article:modified_time" content="2020-07-23T11:55:30.554Z">
 <meta property="article:author" content="veverita7">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="new">
+<meta property="article:tag" content="prototype">
 <meta name="twitter:card" content="summary">
     
 
@@ -153,13 +160,13 @@
         
         
          <ul class="unstyled" id="tree" > 
-                    <li class="directory">
+                    <li class="directory open">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
+                            <i class="fa fa-folder-open"></i>
                             &nbsp;
                             javascript
                         </a>
-                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/iife/">IIFE 란?</a></li>  <li class="file"><a href="/wiki/closure/">클로저(Closure)</a></li>  <li class="file"><a href="/wiki/use-of-window-object/">window 객체 활용법</a></li>  <li class="file"><a href="/wiki/prototype-md/">javascript - prototype에 대해서 알아보자.</a></li>  <li class="file"><a href="/wiki/new/">javascript - new에 대해서 알아보자.</a></li>  </ul> 
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/wiki/iife/">IIFE 란?</a></li>  <li class="file"><a href="/wiki/closure/">클로저(Closure)</a></li>  <li class="file"><a href="/wiki/use-of-window-object/">window 객체 활용법</a></li>  <li class="file"><a href="/wiki/prototype-md/">javascript - prototype에 대해서 알아보자.</a></li>  <li class="file active"><a href="/wiki/new/">javascript - new에 대해서 알아보자.</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -250,31 +257,26 @@
     <div id="toTop" class="fa fa-angle-up"></div>
 </aside>
             
-            <section id="main"><div class="timeline timeline-wrap">
-    
-            <div class="timeline-row timeline-row-major">
-                <span class="node"><i class="fa fa-calendar-o"></i></span>
-                <h1 class="title"><a href="/archives/2020/">2020</a></h1>
-            </div>
-    
-            <div class="timeline-row timeline-row-major">
-                <span class="node"><i class="fa fa-calendar"></i></span>
-                <h1 class="title"><a href="/archives/2020/07/">2020-07</a><span class="archive-list-count">5</span></h1>
-            </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+            <section id="main"><article id="post-new" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
                 
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/wiki/new/">javascript - new에 대해서 알아보자.</a>
-        </h1>
-    
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/javascript/">javascript</a>
+    </div>
 
-                
-                <div class="article-meta">
-                    
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/javascript/" rel="tag">javascript</a>, <a class="tag-link" href="/tags/new/" rel="tag">new</a>, <a class="tag-link" href="/tags/prototype/" rel="tag">prototype</a>
+    </div>
+
+                        
     <div class="article-date">
         <i class="fa fa-calendar"></i>
         <a href="/wiki/new/">
@@ -283,176 +285,105 @@
     </div>
 
 
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/javascript/">javascript</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/javascript/" rel="tag">javascript</a>, <a class="tag-link" href="/tags/new/" rel="tag">new</a>, <a class="tag-link" href="/tags/prototype/" rel="tag">prototype</a>
-    </div>
-
-                </div>
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+                        
+                            <div class="article-meta-button">
+                                <a href='https://github.com/veverita7/veverita7.github.io/raw/writing/source/_posts/new.md' target="_blank" rel="noopener"> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a href='https://github.com/veverita7/veverita7.github.io/edit/writing/source/_posts/new.md' target="_blank" rel="noopener"> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a href='https://github.com/veverita7/veverita7.github.io/commits/writing/source/_posts/new.md' target="_blank" rel="noopener"> History </a>
+                            </div>
+                        
+                    </div>
                 
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
                 
     
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/wiki/prototype-md/">javascript - prototype에 대해서 알아보자.</a>
+        <h1 class="article-title" itemprop="name">
+            javascript - new에 대해서 알아보자.
         </h1>
     
 
-                
-                <div class="article-meta">
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">카탈로그</strong>
                     
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/prototype-md/">
-            <time datetime="2020-07-23T10:35:07.000Z" itemprop="datePublished">2020-07-23</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/javascript/">javascript</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/javascript/" rel="tag">javascript</a>, <a class="tag-link" href="/tags/new/" rel="tag">new</a>, <a class="tag-link" href="/tags/object/" rel="tag">object</a>, <a class="tag-link" href="/tags/prototype/" rel="tag">prototype</a>
-    </div>
-
                 </div>
-                
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/wiki/use-of-window-object/">window 객체 활용법</a>
-        </h1>
-    
+            
+        
+        
+            <blockquote>
+<p>이 페이지는 <a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/new" target="_blank" rel="noopener">MDN 문서</a>를 읽고 정리했습니다.</p>
+</blockquote>
+<p>javascript는 java의 몇 가지 문법을 사용하고 있는데 그 중 하나가 <code>new</code> 이다.</p>
+<p>java와 다른점은 <code>function</code>을 사용한다는 점이다.</p>
+<p>아래 예제를 보자.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Car</span>(<span class="params">maker, model, engine</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.maker = maker;</span><br><span class="line">  <span class="keyword">this</span>.model = model;</span><br><span class="line">  <span class="keyword">this</span>.engine = engine;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Car; <span class="comment">// Car &#123;maker: undefined, model: undefined, engine: undefined&#125;</span></span><br><span class="line"><span class="keyword">new</span> Car(); <span class="comment">// Car &#123;maker: undefined, model: undefined, engine: undefined&#125;</span></span><br><span class="line"><span class="keyword">new</span> Car(<span class="string">"kia"</span>); <span class="comment">// Car &#123;maker: "kia", model: undefined, engine: undefined&#125;</span></span><br><span class="line"><span class="keyword">new</span> Car(<span class="string">"kia"</span>, <span class="string">"k5"</span>, <span class="string">"2.0"</span>); <span class="comment">// Car &#123;maker: "kia", model: "k5", engine: "2.0"&#125;</span></span><br></pre></td></tr></table></figure>
 
-                
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/use-of-window-object/">
-            <time datetime="2020-07-22T13:32:05.000Z" itemprop="datePublished">2020-07-22</time>
+<p>객체 생성시 매개변수가 제한되지 않고 <code>new Car</code> 와 같은 방법도 된다는 것이 특징이다.</p>
+<p><code>Car</code> 객체가 생성되는 과정을 좀 더 자세히 보면 다음과 같다.</p>
+<ol>
+<li><p><code>Car.prototype</code>을 상속하는 새로운 객체가 생성</p>
+</li>
+<li><p>생성자 함수 <code>Car</code>가 호출</p>
+<ul>
+<li><p>호출될때 <code>매개변수</code>와 (1)에서 생성된 객체에 바인드 된 <code>this</code>가 <code>Car</code>에 전달</p>
+</li>
+<li><p><code>매개변수</code>가 없는 경우 <code>this</code>만 <code>Car</code>에 전달</p>
+</li>
+</ul>
+</li>
+<li><p>생성자 함수 <code>Car</code>에 의해 최종 결과 리턴</p>
+<ul>
+<li>생성자 함수가 명시적으로 객체를 리턴하지 않으면 (1)에서 생성된 객체가 리턴</li>
+</ul>
+</li>
+</ol>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+    
+        <a href="/wiki/prototype-md/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">이전 글</strong>
+            <div class="article-nav-title">javascript - prototype에 대해서 알아보자.</div>
         </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/javascript/">javascript</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/instanceof/" rel="tag">instanceof</a>, <a class="tag-link" href="/tags/javascript/" rel="tag">javascript</a>, <a class="tag-link" href="/tags/typeof/" rel="tag">typeof</a>, <a class="tag-link" href="/tags/variables/" rel="tag">variables</a>
-    </div>
-
-                </div>
-                
-            </div>
-        </div>
     
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
+</nav>
+
+
+
+
+
     
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/wiki/closure/">클로저(Closure)</a>
-        </h1>
     
 
-                
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/closure/">
-            <time datetime="2020-07-21T23:27:45.000Z" itemprop="datePublished">2020-07-22</time>
-        </a>
-    </div>
 
 
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/javascript/">javascript</a>
-    </div>
 
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/closure/" rel="tag">closure</a>, <a class="tag-link" href="/tags/javascript/" rel="tag">javascript</a>
-    </div>
-
-                </div>
-                
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/wiki/iife/">IIFE 란?</a>
-        </h1>
-    
-
-                
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/iife/">
-            <time datetime="2020-07-20T13:26:50.000Z" itemprop="datePublished">2020-07-20</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/javascript/">javascript</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/iife/" rel="tag">iife</a>, <a class="tag-link" href="/tags/javascript/" rel="tag">javascript</a>
-    </div>
-
-                </div>
-                
-            </div>
-        </div>
-    
-</div>
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
 </section>
         </div>
         <footer id="footer">
